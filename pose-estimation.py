@@ -69,17 +69,27 @@ BODY_PARTS_MPI = {0: "Head", 1: "Neck", 2: "RShoulder", 3: "RElbow", 4: "RWrist"
                   5: "LShoulder", 6: "LElbow", 7: "LWrist", 8: "RHip", 9: "RKnee",
                   10: "RAnkle", 11: "LHip", 12: "LKnee", 13: "LAnkle", 14: "Chest",
                   }
-                  
+BODY_PARTS_COCO = {0: "Nose", 1: "Neck", 2: "RShoulder", 3: "RElbow", 4: "RWrist",
+                   5: "LShoulder", 6: "LElbow", 7: "LWrist", 8: "RHip", 9: "RKnee",
+                   10: "RAnkle", 11: "LHip", 12: "LKnee", 13: "LAnkle", 14: "REye",
+                   15: "LEye", 16: "REar", 17: "LEar", 18: "Background"}
+
+BODY_PARTS_BODY_25 = {0: "Nose", 1: "Neck", 2: "RShoulder", 3: "RElbow", 4: "RWrist",
+                      5: "LShoulder", 6: "LElbow", 7: "LWrist", 8: "MidHip", 9: "RHip",
+                      10: "RKnee", 11: "RAnkle", 12: "LHip", 13: "LKnee", 14: "LAnkle",
+                      15: "REye", 16: "LEye", 17: "REar", 18: "LEar", 19: "LBigToe",
+                      20: "LSmallToe", 21: "LHeel", 22: "RBigToe", 23: "RSmallToe", 24: "RHeel", 25: "Background"}
+
 # 신경 네트워크의 구조를 지정하는 prototxt 파일 (다양한 계층이 배열되는 방법 등)
 protoFile_mpi = "./pose_deploy_linevec.prototxt"
 protoFile_mpi_faster = "C:\\Users\\USER\\Downloads\\openpose-master\\openpose-master\\models\\pose\\mpi\\pose_deploy_linevec_faster_4_stages.prototxt"
-# protoFile_coco = "C:\\openpose\\models\\pose\\coco\\pose_deploy_linevec.prototxt"
-# protoFile_body_25 = "C:\\Users\\USER\\Downloads\\openpose-master\\openpose-master\\models\\pose\\body_25\\pose_deploy.prototxt"
+protoFile_coco = "C:\\Users\\USER\\Downloads\\openpose-master\\openpose-master\\models\\pose\\coco\\pose_deploy_linevec.prototxt"
+protoFile_body_25 = "C:\\Users\\USER\\Downloads\\openpose-master\\openpose-master\\models\\pose\\body_25\\pose_deploy.prototxt"
 
 # 훈련된 모델의 weight 를 저장하는 caffemodel 파일
 weightsFile_mpi = "C:\\Users\\USER\\Downloads\\openpose-master\\openpose-master\\models\\pose\\mpi\\pose_iter_160000.caffemodel"
-# weightsFile_coco = "C:\\openpose\\models\\pose\\coco\\pose_iter_440000.caffemodel"
-# weightsFile_body_25 = "C:\\Users\\USER\\Downloads\\openpose-master\\openpose-master\\models\\pose\\body_25\\pose_iter_584000.caffemodel"
+weightsFile_coco = "C:\\Users\\USER\\Downloads\\openpose-master\\openpose-master\\models\\pose\\coco\\pose_iter_440000.caffemodel"
+weightsFile_body_25 = "C:\\Users\\USER\\Downloads\\openpose-master\\openpose-master\\models\\pose\\body_25\\pose_iter_584000.caffemodel"
 
 # 이미지 경로
 man = "C:\\Users\\USER\\Downloads\\man.jpg"
@@ -90,15 +100,15 @@ points = []
 
 # 이미지 읽어오기
 frame_mpii = cv2.imread(girl)
-# frame_coco = frame_mpii.copy()
+frame_coco = frame_mpii.copy()
 frame_body_25 = frame_mpii.copy()
 
 
 
 # MPII Model
 start = time.time() # 시작
-frame_MPII = output_keypoints(frame=frame_mpii, proto_file=protoFile_mpi_faster, weights_file=weightsFile_mpi,
-                             threshold=0.2, model_name="MPII", BODY_PARTS=BODY_PARTS_MPI)
+# frame_MPII = output_keypoints(frame=frame_mpii, proto_file=protoFile_mpi_faster, weights_file=weightsFile_mpi,
+#                              threshold=0.2, model_name="MPII", BODY_PARTS=BODY_PARTS_MPI)
 
 
 #output_keypoints_with_lines(frame=frame_MPII, POSE_PAIRS=POSE_PAIRS_MPI)
@@ -109,6 +119,6 @@ frame_MPII = output_keypoints(frame=frame_mpii, proto_file=protoFile_mpi_faster,
 # output_keypoints_with_lines(frame=frame_COCO, POSE_PAIRS=POSE_PAIRS_COCO)
 
 # # BODY_25 Model
-# frame_BODY_25 = output_keypoints(frame=frame_body_25, proto_file=protoFile_body_25, weights_file=weightsFile_body_25,
-#                              threshold=0.2, model_name="BODY_25", BODY_PARTS=BODY_PARTS_BODY_25)
+frame_BODY_25 = output_keypoints(frame=frame_body_25, proto_file=protoFile_body_25, weights_file=weightsFile_body_25,
+                             threshold=0.2, model_name="BODY_25", BODY_PARTS=BODY_PARTS_BODY_25)
 # # output_keypoints_with_lines(frame=frame_BODY_25, POSE_PAIRS=POSE_PAIRS_BODY_25)
